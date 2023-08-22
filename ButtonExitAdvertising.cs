@@ -9,10 +9,10 @@ namespace Advertising
 {
     public class ButtonExitAdvertising : IButton
     {
-        delegate void myDelegate();
+        delegate Task<bool> myDelegate();
         public void Click()
         {
-            SetAction(ExitAdvettising);
+           SetAction(ExitAdvettisingAsync);
         }
 
         private void SetAction(myDelegate myDelegate)
@@ -20,9 +20,22 @@ namespace Advertising
             myDelegate.Invoke();
         }
 
-        private void ExitAdvettising()
+        public async Task<bool> ExitAdvettisingAsync()
         {
-            Console.WriteLine("Вы не получили вознаграждение");
+            var result = await Task.Run(() => ExitAdvettising());
+            return result;
+            
+        }
+
+        private bool ExitAdvettising()
+        {
+            Console.WriteLine("Введите 0 если не хотите смотреть рекламу");
+            int input = Convert.ToInt32(Console.ReadLine());
+            if(input == 0)
+            {
+                Console.WriteLine("Вы не получили вознаграждение");
+            }
+            return true;
         }
     }
 }

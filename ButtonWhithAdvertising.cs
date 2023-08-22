@@ -11,6 +11,7 @@ namespace Advertising
     public class ButtonWhithAdvertising :IButton
     {
         delegate void myDelegate();
+
         private Person _person;
         private ButtonExitAdvertising _buttonExitAdvertising;
 
@@ -22,7 +23,7 @@ namespace Advertising
 
         public void Click()
         {
-            SetAction(ButtonClick);           
+            //SetAction(ButtonClick);           
         }
 
         private void SetAction(myDelegate myDelegate)
@@ -30,9 +31,14 @@ namespace Advertising
             myDelegate.Invoke();
         }
 
+        public async Task<bool> ButtonClickAsync()
+        {
+            var result = await Task.Run(() => ButtonClick());
+            return result;
 
+        }
 
-        private void ButtonClick()
+        private bool ButtonClick()
         {
             Console.WriteLine("Вы точно хотите посмотреть рекламу?\n1. Да хочу\n2. Нет не хочу");
 
@@ -40,23 +46,50 @@ namespace Advertising
             switch (choose)
             {
                 case 1:
-                    DateTime tenSecond = DateTime.Now;
-                    DateTime temp = tenSecond.AddSeconds(10.0);
-                    for (int i = 10; i >= 0; i--)
+                DateTime tenSecond = DateTime.Now;
+                DateTime temp = tenSecond.AddSeconds(10.0);
+                for (int i = 10; i >= 0; i--)
+                {
+                    Console.WriteLine(i);
+                    DateTime dateTime = DateTime.Now;
+                    Thread.Sleep(1000);
+                    if (dateTime.Second == temp.Second)
                     {
+                        Console.WriteLine("Реклама просмотрена!");
+                       /* _person.Health += 5;
+                        _person.Attack += 5;
+                        _person.Armor += 5;
+                        Console.WriteLine($"Здоровье: {_person.Health} Атака: {_person.Attack} Броня: {_person.Armor}");*/
+                    }
 
 
-                        DateTime dateTime = DateTime.Now;
-                        Thread.Sleep(1000);
-                        if (dateTime.Second == temp.Second)
-                        {
-                            Console.WriteLine("Реклама просмотрена!");
-                            _person.Health += 5;
-                            _person.Attack += 5;
-                            _person.Armor += 5;
-                            Console.WriteLine($"Здоровье: {_person.Health} Атака: {_person.Attack} Броня: {_person.Armor}");
+
+                }
+            return false;
+        }
+
+        /* private void ButtonClick()
+         {
+
+             try
+             {
+                 DateTime tenSecond = DateTime.Now;
+                 DateTime temp = tenSecond.AddSeconds(10.0);
+                 _buttonExitAdvertising.ExitAdvettisingAsync();
+                 for (int i = 10; i >= 0; i--)
+                 {
+                     Console.WriteLine(i);
+                     DateTime dateTime = DateTime.Now;
+                     Thread.Sleep(1000);
+                     if (dateTime.Second == temp.Second)
+                     {
+                         Console.WriteLine("Реклама просмотрена!");
+                         _person.Health += 5;
+                         _person.Attack += 5;
+                         _person.Armor += 5;
+                         Console.WriteLine($"Здоровье: {_person.Health} Атака: {_person.Attack} Броня: {_person.Armor}");
                             break;
-                        }
+                     }
                         Console.WriteLine(i);
                     }
                     break;
@@ -64,10 +97,16 @@ namespace Advertising
                     _buttonExitAdvertising.Click();
                     break;
             }
-            
-           
-        }
 
 
+                 }
+             }
+             catch (BreakException exception)
+             {
+                 Console.WriteLine(exception.Message);
+                 throw;
+             }
+
+         }*/
     }
 }

@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="BreakException.cs" />
     <Compile Include="ButtonExitAdvertising.cs" />
     <Compile Include="ButtonRandomAdd.cs" />
     <Compile Include="ButtonWhithAdvertising.cs" />
@@ -51,6 +52,7 @@
     <Compile Include="Person.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WorkWithAdvertisingAsync.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
