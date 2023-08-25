@@ -35,13 +35,8 @@ namespace Advertising
                         ButtonRandomAdd.Click();
                         break;
                     case 2:
-                        // ButtonWhithAdvertising.Click();
-                       await WorkWithAdvertisingAsync.AdvertisingAsync();
-
+                        await WorkWithAdvertisingAsync.AdvertisingAsync();
                         break;
-                   /* case 3:
-                        ButtonExitAdvertising.Click();
-                        break;*/
                     default:
                         Console.WriteLine("Такой кнопки не существует");
                         break;
