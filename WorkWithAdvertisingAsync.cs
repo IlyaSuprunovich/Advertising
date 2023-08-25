@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Advertising
@@ -22,23 +23,25 @@ namespace Advertising
 
         public async Task AdvertisingAsync()
         {
-            Task advertisingTimer = _buttonWhithAdvertising.ButtonClickAsync();
-            Task advertisingExit = _buttonExitAdvertising.ExitAdvettisingAsync();
-            await Task.WhenAny(advertisingExit, advertisingTimer);
+            CancellationTokenSource cancellationToken = new CancellationTokenSource();
+            Task advertisingTimer = _buttonWhithAdvertising.ButtonClickAsync(cancellationToken.Token);
+            Task advertisingExit = _buttonExitAdvertising.ExitAdvettisingAsync(cancellationToken.Token);
+            Task[] tasks = new Task[2] {advertisingTimer, advertisingExit}; 
+            Task.WaitAny(tasks);
             if (advertisingExit.IsCompleted)
             {
                 Console.WriteLine("В следующий раз смотри рекламу");
-                _buttonWhithAdvertising.CancelTokenSource.Cancel();
-                _buttonWhithAdvertising.CancelTokenSource.Dispose();
+                cancellationToken.Cancel();
+               
             }
-            else if (advertisingTimer.IsCanceled)
+            else if (advertisingTimer.IsCompleted )
             {
                 _person.Health += 5;
                 _person.Attack += 5;
                 _person.Armor += 5;
                 Console.WriteLine($"Здоровье: {_person.Health} Атака: {_person.Attack} Броня: {_person.Armor}");
-                _buttonExitAdvertising.CancelTokenSource.Cancel();
-                _buttonExitAdvertising.CancelTokenSource.Dispose();
+                cancellationToken.Cancel();
+                
             }
             
             

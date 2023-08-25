@@ -12,8 +12,8 @@ namespace Advertising
     {
         delegate void myDelegate();
 
-        public CancellationTokenSource CancelTokenSource;
-        public CancellationToken Token;
+      
+       
 
         private Person _person;
         private ButtonExitAdvertising _buttonExitAdvertising;
@@ -22,8 +22,7 @@ namespace Advertising
         {
             this._person = person;
             _buttonExitAdvertising = new ButtonExitAdvertising();
-            CancelTokenSource = new CancellationTokenSource();
-            Token = CancelTokenSource.Token;
+            
         }
 
         public void Click()
@@ -36,14 +35,14 @@ namespace Advertising
             myDelegate.Invoke();
         }
 
-        public async Task<bool> ButtonClickAsync()
+        public async Task<bool> ButtonClickAsync(CancellationToken Token)
         {
-            var result = await Task.Run(() => ButtonClick(), Token);
+            var result = await Task.Run(() => ButtonClick(Token), Token);
             return result;
 
         }
 
-        private bool ButtonClick()
+        private bool ButtonClick(CancellationToken Token)
         {
             
             DateTime tenSecond = DateTime.Now;

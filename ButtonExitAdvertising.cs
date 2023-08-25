@@ -11,18 +11,18 @@ namespace Advertising
     public class ButtonExitAdvertising : IButton
     {
         delegate Task<bool> myDelegate();
-        public CancellationTokenSource CancelTokenSource;
-        public CancellationToken Token;
+
+       // public CancellationToken Token;
         public ButtonExitAdvertising()
         {
-            CancelTokenSource = new CancellationTokenSource();
-            Token = CancelTokenSource.Token;
+           // CancelTokenSource = new CancellationTokenSource();
+            /*Token = CancelTokenSource.Token;*/
         }
 
 
         public void Click()
         {
-           SetAction(ExitAdvettisingAsync);
+           //SetAction(ExitAdvettisingAsync);
         }
 
         private void SetAction(myDelegate myDelegate)
@@ -32,24 +32,17 @@ namespace Advertising
 
         public async Task<bool> ExitAdvettisingAsync()
         {
-            var result = await Task.Run(() => ExitAdvettising(), Token);
+            var result = await Task.Run(() => ExitAdvettising());
             return result;
             
         }
 
-        private bool ExitAdvettising()
+        private bool ExitAdvettising(CancellationToken token)
         {
-            
             Console.WriteLine("Введите 0 если не хотите смотреть рекламу");
            
             int input = Convert.ToInt32(Console.ReadLine());
-            if (Token.IsCancellationRequested)  // проверяем наличие сигнала отмены задачи
-            {
-                Console.WriteLine("Операция прервана");
-                input = 1;
-                //  выходим из метода и тем самым завершаем задачу
-            }
-            if (input == 0)
+            if(input == 0)
             {
                 Console.WriteLine("Вы не получили вознаграждение");
             }
