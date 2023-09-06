@@ -10,19 +10,18 @@ namespace Advertising
 {
     public class ButtonExitAdvertising : IButton
     {
-        delegate Task<bool> myDelegate();
+        delegate void myDelegate();
+        ButtonWhithAdvertising _buttonWhithAdvertising;
 
-       // public CancellationToken Token;
-        public ButtonExitAdvertising()
+        public ButtonExitAdvertising(ButtonWhithAdvertising buttonWhithAdvertising)
         {
-           // CancelTokenSource = new CancellationTokenSource();
-            /*Token = CancelTokenSource.Token;*/
+            this._buttonWhithAdvertising = buttonWhithAdvertising;
         }
 
 
         public void Click()
         {
-           //SetAction(ExitAdvettisingAsync);
+           SetAction(ExitAdvettising);
         }
 
         private void SetAction(myDelegate myDelegate)
@@ -30,23 +29,23 @@ namespace Advertising
             myDelegate.Invoke();
         }
 
-        public async Task<bool> ExitAdvettisingAsync()
+        private void ExitAdvettising()
         {
-            var result = await Task.Run(() => ExitAdvettising());
-            return result;
-            
-        }
-
-        private bool ExitAdvettising(CancellationToken token)
-        {
-            Console.WriteLine("Введите 0 если не хотите смотреть рекламу");
+            Console.WriteLine("Вы точно хотите смотреть рекламу?\n1. Да\n2. Нет");
            
             int input = Convert.ToInt32(Console.ReadLine());
-            if(input == 0)
+            switch (input)
             {
-                Console.WriteLine("Вы не получили вознаграждение");
+                case 1:
+                    _buttonWhithAdvertising.Click();
+                    break;
+                case 2:
+                    Console.WriteLine("В следующий раз смотрите рекламу");
+                    break;
+                default:
+                    Console.WriteLine("Такой кнопки не существует");
+                    break;
             }
-            return true;
         }
     }
 }

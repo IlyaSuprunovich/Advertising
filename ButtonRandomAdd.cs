@@ -10,6 +10,7 @@ namespace Advertising
     {
         private Random _random = new Random();
         private Person _person;
+        delegate void myDelegate();
 
         public ButtonRandomAdd(Person person)
         {
@@ -17,6 +18,16 @@ namespace Advertising
         }
 
         public void Click()
+        {
+            SetAction(RandomUp);
+        }
+
+        private void SetAction(myDelegate myDelegate)
+        {
+            myDelegate.Invoke();
+        }
+
+        public void RandomUp()
         {
            int choose = _random.Next(1, 4);
 

@@ -12,18 +12,16 @@ namespace Advertising
         ButtonRandomAdd ButtonRandomAdd;
         ButtonWhithAdvertising ButtonWhithAdvertising;
         ButtonExitAdvertising ButtonExitAdvertising;
-        WorkWithAdvertisingAsync WorkWithAdvertisingAsync;
 
         public App()
         {
             Person = new Person();
             ButtonRandomAdd = new ButtonRandomAdd(Person);
             ButtonWhithAdvertising = new ButtonWhithAdvertising(Person);
-            ButtonExitAdvertising = new ButtonExitAdvertising();
-            WorkWithAdvertisingAsync = new WorkWithAdvertisingAsync(ButtonWhithAdvertising, ButtonExitAdvertising, Person);
+            ButtonExitAdvertising = new ButtonExitAdvertising(ButtonWhithAdvertising);
         }
 
-        public async void StartApp()
+        public void StartApp()
         {
             while (true)
             {
@@ -35,7 +33,7 @@ namespace Advertising
                         ButtonRandomAdd.Click();
                         break;
                     case 2:
-                        await WorkWithAdvertisingAsync.AdvertisingAsync();
+                        ButtonExitAdvertising.Click();
                         break;
                     default:
                         Console.WriteLine("Такой кнопки не существует");
