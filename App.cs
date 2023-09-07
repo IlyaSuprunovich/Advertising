@@ -10,15 +10,13 @@ namespace Advertising
     {
         Person Person;
         ButtonRandomAdd ButtonRandomAdd;
-        ButtonWhithAdvertising ButtonWhithAdvertising;
-        ButtonExitAdvertising ButtonExitAdvertising;
+        ButtonAdvertising ButtonAdvertising;
 
         public App()
         {
             Person = new Person();
             ButtonRandomAdd = new ButtonRandomAdd(Person);
-            ButtonWhithAdvertising = new ButtonWhithAdvertising(Person);
-            ButtonExitAdvertising = new ButtonExitAdvertising(ButtonWhithAdvertising);
+            ButtonAdvertising = new ButtonAdvertising(Person);
         }
 
         public void StartApp()
@@ -33,12 +31,11 @@ namespace Advertising
                         ButtonRandomAdd.Click();
                         break;
                     case 2:
-                        ButtonExitAdvertising.Click();
+                        ButtonAdvertising.Click();
                         break;
                     default:
                         Console.WriteLine("Такой кнопки не существует");
                         break;
-
                 }
             }
         }

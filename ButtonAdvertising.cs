@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Advertising
 {
-    public class ButtonExitAdvertising : IButton
+    public class ButtonAdvertising : IButton
     {
         delegate void myDelegate();
-        ButtonWhithAdvertising _buttonWhithAdvertising;
+        Person _person;
 
-        public ButtonExitAdvertising(ButtonWhithAdvertising buttonWhithAdvertising)
+        public ButtonAdvertising(Person person)
         {
-            this._buttonWhithAdvertising = buttonWhithAdvertising;
+            this._person = person;   
         }
 
 
@@ -37,7 +37,11 @@ namespace Advertising
             switch (input)
             {
                 case 1:
-                    _buttonWhithAdvertising.Click();
+                    Console.WriteLine("Реклама просмотрена!");
+                    _person.Health += 5;
+                    _person.Attack += 5;
+                    _person.Armor += 5;
+                    Console.WriteLine($"Здоровье: {_person.Health} Атака: {_person.Attack} Броня: {_person.Armor}");
                     break;
                 case 2:
                     Console.WriteLine("В следующий раз смотрите рекламу");
